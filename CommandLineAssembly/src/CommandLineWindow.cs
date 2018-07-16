@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 class CommandLineWindow : MonoBehaviour {
 
@@ -40,13 +41,7 @@ class CommandLineWindow : MonoBehaviour {
     /// <summary>
     /// Style to be used for console messages.
     /// </summary>
-    public GUIStyle logMessageStyle = new GUIStyle {
-        font = (Font)Resources.Load("Fonts/RobotoMono-Regular.ttf"),
-        fontSize = 14,
-        normal = new GUIStyleState {
-            textColor = Color.white
-        }
-    };
+    public GUIStyle logMessageStyle;
     #endregion
 
     private CommandLineService serviceProvider;
@@ -133,6 +128,13 @@ class CommandLineWindow : MonoBehaviour {
     }
 
     void Start() {
+         logMessageStyle = new GUIStyle {
+             font = GetComponentInChildren<Text>().font,
+             fontSize = 14,
+             normal = new GUIStyleState {
+                 textColor = Color.white
+             }
+         };
         serviceProvider = GetComponent<CommandLineService>();
         if (openOnStart) {
             isVisible = true;
