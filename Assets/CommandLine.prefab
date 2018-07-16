@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114005015250954426}
   - component: {fileID: 114725231064012978}
   - component: {fileID: 114926620516703624}
-  - component: {fileID: 114536632631191772}
+  - component: {fileID: 114249419670908376}
   m_Layer: 0
   m_Name: CommandLine
   m_TagString: Untagged
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: -271661043, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114536632631191772
+--- !u!114 &114249419670908376
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -137,14 +137,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1604824066699160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -444139925, guid: 85dbfdfc0555b9e46abfb645218a3915, type: 3}
+  m_Script: {fileID: 1501841661, guid: 85dbfdfc0555b9e46abfb645218a3915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameCommands: {fileID: 114181448084599102}
-  GameInfo: {fileID: 114204208203326916}
-  BombInfo: {fileID: 114005015250954426}
-  Service: {fileID: 114725231064012978}
-  Console: {fileID: 114926620516703624}
 --- !u!114 &114725231064012978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -164,10 +159,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1604824066699160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1240886614, guid: 85dbfdfc0555b9e46abfb645218a3915, type: 3}
+  m_Script: {fileID: -982784922, guid: 85dbfdfc0555b9e46abfb645218a3915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serviceProvider: {fileID: 114536632631191772}
   toggleKey: 96
   openOnStart: 0
   shakeToOpen: 1
@@ -179,7 +173,7 @@ MonoBehaviour:
     m_Normal:
       m_Background: {fileID: 0}
       m_ScaledBackgrounds: []
-      m_TextColor: {r: 1, g: 1, b: 1, a: 1}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_ScaledBackgrounds: []
@@ -228,10 +222,10 @@ MonoBehaviour:
       m_Right: 0
       m_Top: 0
       m_Bottom: 0
-    m_Font: {fileID: 12800000, guid: 62ebf92796aedeb44b6a089a07b24f98, type: 3}
-    m_FontSize: 14
+    m_Font: {fileID: 0}
+    m_FontSize: 0
     m_FontStyle: 0
-    m_Alignment: 6
+    m_Alignment: 0
     m_WordWrap: 0
     m_RichText: 1
     m_TextClipping: 0
