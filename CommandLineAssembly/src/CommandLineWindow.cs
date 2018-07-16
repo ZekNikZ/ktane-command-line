@@ -40,7 +40,13 @@ class CommandLineWindow : MonoBehaviour {
     /// <summary>
     /// Style to be used for console messages.
     /// </summary>
-    public GUIStyle logMessageStyle;
+    public GUIStyle logMessageStyle = new GUIStyle {
+        font = (Font)Resources.Load("Fonts/RobotoMono-Regular.ttf"),
+        fontSize = 14,
+        normal = new GUIStyleState {
+            textColor = Color.white
+        }
+    };
     #endregion
 
     private CommandLineService serviceProvider;

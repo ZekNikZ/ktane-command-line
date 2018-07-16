@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Missions;
 using Assets.Scripts.Records;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace CommandLineAssembly
@@ -12,7 +13,8 @@ namespace CommandLineAssembly
 		public WidgetManager WidgetManager { get; private set; } = null;
 		public Selectable Selectable { get; private set; } = null;
 		public FloatingHoldable FloatingHoldable { get; private set; } = null;
-		public float CurrentTimer
+        public SelectableManager SelectableManager { get; private set; } = null;
+        public float CurrentTimer
 		{
 			get => TimerComponent.TimeRemaining;
 			set => TimerComponent.TimeRemaining = (value < 0) ? 0 : value;
@@ -43,9 +45,10 @@ namespace CommandLineAssembly
 			Selectable = bomb.GetComponent<Selectable>();
 			FloatingHoldable = bomb.GetComponent<FloatingHoldable>();
 			Id = id;
-		}
+            SelectableManager = KTInputManager.Instance.SelectableManager;
+        }
 
-		public bool IsHeld()
+        public bool IsHeld()
 		{
 			return FloatingHoldable.HoldState == FloatingHoldable.HoldStateEnum.Held ? true : false;
 		}
@@ -109,5 +112,49 @@ namespace CommandLineAssembly
 				Bomb.StrikeIndicator.StrikeCount = strikeCount;
 			}
 		}
-	}
+
+#if DEBUG
+		public IEnumerator TurnBombCoroutine()
+		{
+			float duration = FloatingHoldable.PickupTime;
+			Transform baseTransform = SelectableManager.GetBaseHeldObjectTransform();
+
+			float oldZSpin = SelectableManager.GetZSpin();
+			float targetZSpin = 180.0f;
+			FaceEnum CurrentActiveFace = FloatingHoldable.ActiveFace;
+			switch (CurrentActiveFace)
+			{
+				case FaceEnum.Front:
+					targetZSpin = 180.0f;
+					break;
+				case FaceEnum.Rear:
+					targetZSpin = 0.0f;
+					break;
+			}
+
+
+			float initialTime = Time.time;
+			while (Time.time - initialTime < duration)
+			{
+				float lerp = (Time.time - initialTime) / duration;
+				float currentZSpin = Mathf.SmoothStep(oldZSpin, targetZSpin, lerp);
+
+				Quaternion currentRotation = Quaternion.Euler(0.0f, 0.0f, currentZSpin);
+
+				SelectableManager.SetZSpin(currentZSpin);
+				SelectableManager.SetControlsRotation(baseTransform.rotation * currentRotation);
+				SelectableManager.HandleFaceSelection();
+				yield return null;
+			}
+
+			SelectableManager.SetZSpin(targetZSpin);
+			SelectableManager.SetControlsRotation(baseTransform.rotation * Quaternion.Euler(0.0f, 0.0f, targetZSpin));
+			SelectableManager.HandleFaceSelection();
+		}
+#else
+        public IEnumerator TurnBombCoroutine() {
+            yield break;
+        }
+#endif
+    }
 }
