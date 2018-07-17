@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Missions;
+﻿using Assets.Scripts.Input;
+using Assets.Scripts.Missions;
 using Assets.Scripts.Records;
 using System;
 using System.Collections;
@@ -113,7 +114,6 @@ namespace CommandLineAssembly {
 					targetZSpin = 0.0f;
 					break;
 			}
-
 
 			float initialTime = Time.time;
 			while (Time.time - initialTime < duration)

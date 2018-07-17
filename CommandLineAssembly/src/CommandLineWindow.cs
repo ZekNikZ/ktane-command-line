@@ -277,6 +277,7 @@ namespace CommandLineAssembly {
             Log log;
             while (queuedLogs.TryDequeue(out log)) {
                 ProcessLogItem(log);
+                ScrollToBottom();
             }
         }
 
@@ -347,7 +348,6 @@ namespace CommandLineAssembly {
 
         void SendCommand() {
             if (currentEntry.Trim() == "") return;
-            if (currentEntry.Trim().ToLowerInvariant() != "clear") Log("Command Sent: " + currentEntry);
             doScroll = true;
             serviceProvider.ProcessCommand(currentEntry);
             currentEntry = "";

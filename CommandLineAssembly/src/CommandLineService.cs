@@ -43,7 +43,7 @@ namespace CommandLineAssembly {
         }
         private bool? _tpPresent = null;
         private GameObject TwitchPlays;
-        private const string TwitchPlaysHandle = "_commandline";
+        private const string TwitchPlaysHandle = "CommandLine";
 
         public void InitTwitchPlays() {
             TwitchPlays = GameObject.Find("TwitchPlays_Info");
@@ -60,6 +60,7 @@ namespace CommandLineAssembly {
             BombInfo = GetComponent<KMBombInfo>();
             Service = GetComponent<KMService>();
             Console = GetComponent<CommandLineWindow>();
+            SetUpCommands();
         }
 
         private void OnEnable() {
