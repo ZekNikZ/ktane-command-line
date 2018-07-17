@@ -433,22 +433,7 @@ namespace CommandLineAssembly {
                     }
                 }
             });
-            DebugModeCommands.Add(new Command {
-                Name = "checkactive",
-                Help = "Display debug information about the currently held bomb.",
-                Usage = "checkactive",
-                Action = _ => {
-                    string result = BombActive ? $"Bomb(s) are active. Count: {Bombs.Count}." : "No bomb detected.";
-                    if (BombActive) {
-                        BombCommander heldBombCommander = GetHeldBomb();
-                        result += $"\n     Currently held bomb: {(heldBombCommander != null ? $"#{heldBombCommander.Id}" : "N/A")}.";
-                        Module focusedModule = GetFocusedModule();
-                        result += $"\n     Currently focused module: {(focusedModule != null ? $"{focusedModule.ModuleName}" : "N/A")}.";
-                    }
-                    Log(result);
-                }
-            });
-            DebugModeCommands.Add(new Command {
+            Commands.Add(new Command {
                 Name = "turn",
                 Aliases = new string[] { "flip", "rotate" },
                 Help = "Turn the bomb over to the opposite face.",
@@ -464,6 +449,21 @@ namespace CommandLineAssembly {
                     } else {
                         LogError("Can't turn bomb: no bombs active.");
                     }
+                }
+            });
+            DebugModeCommands.Add(new Command {
+                Name = "checkactive",
+                Help = "Display debug information about the currently held bomb.",
+                Usage = "checkactive",
+                Action = _ => {
+                    string result = BombActive ? $"Bomb(s) are active. Count: {Bombs.Count}." : "No bomb detected.";
+                    if (BombActive) {
+                        BombCommander heldBombCommander = GetHeldBomb();
+                        result += $"\n     Currently held bomb: {(heldBombCommander != null ? $"#{heldBombCommander.Id}" : "N/A")}.";
+                        Module focusedModule = GetFocusedModule();
+                        result += $"\n     Currently focused module: {(focusedModule != null ? $"{focusedModule.ModuleName}" : "N/A")}.";
+                    }
+                    Log(result);
                 }
             });
         }
