@@ -74,6 +74,8 @@ namespace CommandLineAssembly {
         Rect windowRect = new Rect(margin, margin, Screen.width - (margin * 2), Screen.height - (margin * 2));
 
         public string currentEntry = "";
+        private List<string> previousEntries = new List<string>();
+        private int previousEntryIndex = -1;
 
         readonly Dictionary<LogType, bool> logTypeFilters = new Dictionary<LogType, bool>
         {
@@ -250,6 +252,12 @@ namespace CommandLineAssembly {
             } else if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Return) {
                 SendCommand();
                 gainFocus = true;
+            } else if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.UpArrow) {
+                if (previousEntryIndex < previousEntries.Count - 1) previousEntryIndex++;
+                currentEntry = previousEntries[previousEntryIndex];
+            } else if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.DownArrow) {
+                if (previousEntryIndex > 0) previousEntryIndex--;
+                currentEntry = previousEntries[previousEntryIndex];
             }
 
             DrawToolbar();
@@ -350,6 +358,8 @@ namespace CommandLineAssembly {
             if (currentEntry.Trim() == "") return;
             doScroll = true;
             serviceProvider.ProcessCommand(currentEntry);
+            previousEntries.Insert(0, currentEntry);
+            previousEntryIndex = 0;
             currentEntry = "";
         }
 
